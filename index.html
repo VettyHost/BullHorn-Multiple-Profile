@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bullhorn - Vetty Screening Profile Management</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for exact iconography -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bhNavy: '#17253d',
+            bhBlue: '#1e73be',
+            bhLightBlue: '#0083ca',
+            bhBorder: '#dbe0e6',
+            bhGrayText: '#6c757d',
+            bhBg: '#f2f4f8',
+            vettyOrange: '#f59e0b',
+            vettyGreen: '#10b981',
+            vettyBlue: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars and styling tweaks */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c2c9d2;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9aa5b2;
+    }
+    .custom-shadow {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body class="bg-[#f0f2f5] font-sans text-xs sm:text-sm text-gray-800 h-screen flex flex-col overflow-hidden select-none">
+
+  <!-- Bullhorn Header Bar -->
+  <header class="bg-bhNavy text-white h-11 flex items-center justify-between px-3 shrink-0 z-30">
+    <div class="flex items-center space-x-3">
+      <!-- Bullhorn Logo & Brand -->
+      <div class="flex items-center space-x-1.5 cursor-pointer font-bold text-lg tracking-tight">
+        <span class="text-white text-base font-semibold">Bullhorn</span>
+        <svg class="w-5 h-5 text-orange-500 fill-current inline-block" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12c0 3.84 2.16 7.18 5.34 8.87.21-.19.46-.35.74-.47 1.25-.54 2.22-1.51 2.76-2.76.12-.28.28-.53.47-.74C11.31 16.9 12 14.54 12 12c0-2.54-.69-4.9-1.92-6.9.19-.21.35-.46.47-.74.54-1.25 1.51-2.22 2.76-2.76.28-.12.53-.28.74-.47C17.84 4.82 22 8.16 22 12s-4.16 7.18-7.95 9.13c-.21.19-.46.35-.74.47-1.25.54-2.22 1.51-2.76 2.76-.08.18-.18.35-.3.51C11.08 24.96 11.54 25 12 25c7.18 0 13-5.82 13-13S19.18 2 12 2z"/>
+        </svg>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <button class="bg-[#1f3354] hover:bg-[#273f67] text-white px-2.5 py-1 rounded text-xs flex items-center space-x-1 transition">
+        <i class="fa fa-search text-[10px] text-blue-300"></i>
+        <span>Find</span>
+      </button>
+
+      <button class="bg-bhBlue hover:bg-blue-600 text-white px-2.5 py-1 rounded text-xs flex items-center space-x-1 font-medium transition">
+        <i class="fa fa-plus text-[10px]"></i>
+        <span>Add</span>
+      </button>
+    </div>
+
+    <!-- Right Header Utilities -->
+    <div class="flex items-center space-x-4 text-xs text-gray-300">
+      <span class="hover:text-white cursor-pointer hidden md:inline">Privacy</span>
+      <span class="hover:text-white cursor-pointer hidden sm:flex items-center space-x-1">
+        <i class="fa-regular fa-question-circle"></i>
+        <span>Help</span>
+      </span>
+      <!-- User Profile Pill -->
+      <div class="flex items-center space-x-2 bg-[#223554] py-1 px-2.5 rounded-full cursor-pointer hover:bg-[#2b4269]">
+        <span class="text-white text-xs font-medium">Harmeet Singh</span>
+        <span class="bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold">HS</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden relative">
+    
+    <!-- Left Sidebar -->
+    <aside class="w-44 bg-[#f8f9fa] border-r border-[#d9dee4] flex flex-col justify-between shrink-0 select-none hidden md:flex">
+      <div>
+        <div class="p-2.5 border-b border-[#e1e6eb] font-semibold text-gray-700 flex items-center space-x-2 hover:bg-gray-100 cursor-pointer">
+          <i class="fa fa-bars text-gray-500"></i>
+          <span>Menu</span>
+        </div>
+        <div class="py-2">
+          <div class="px-3 py-1.5 text-xs text-gray-500 font-medium">Placement List</div>
+          <div class="px-3 py-1.5 text-xs text-gray-500 font-medium">Candidate List</div>
+          <div class="px-3 py-1.5 text-xs text-gray-500 truncate hover:bg-blue-50 cursor-pointer">5751 | Stellaaa Colon</div>
+          <div class="px-3 py-2 text-xs font-semibold text-blue-700 bg-white border-l-4 border-bhBlue shadow-sm cursor-pointer truncate">
+            2818 | Mike William - ...
+          </div>
+        </div>
+      </div>
+      <div class="p-2 border-t border-[#e1e6eb] bg-[#f0f2f5] text-[11px] text-gray-600">
+        <div class="flex items-center space-x-1 cursor-pointer hover:text-blue-600 mb-1">
+          <i class="fa fa-file-text text-blue-500"></i>
+          <span>Parse Resume</span>
+        </div>
+        <div class="font-bold text-[10px] text-gray-500 cursor-pointer hover:text-gray-800 uppercase tracking-wide">
+          CLOSE ALL TABS
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-hidden bg-white">
+      
+      <!-- Top Record Summary Ribbon -->
+      <section class="border-b border-[#d8dee4] px-4 py-2 bg-white flex flex-wrap items-center justify-between gap-y-2 shrink-0">
+        <div class="flex items-center space-x-3">
+          <i class="fa fa-star text-bhNavy text-sm cursor-pointer hover:text-amber-400"></i>
+          <span class="text-sm font-semibold text-gray-700">2818</span>
+          <span class="text-gray-400">|</span>
+          <h1 id="topRecordHeaderName" class="text-sm font-bold text-gray-900 tracking-tight">
+            Mike William - VettyQA
+          </h1>
+        </div>
+
+        <div class="flex items-center space-x-2 text-xs">
+          <div class="flex items-center space-x-1 text-gray-500">
+            <button class="p-1 hover:bg-gray-100 rounded text-gray-600"><i class="fa fa-chevron-left text-[10px]"></i></button>
+            <button class="p-1 hover:bg-gray-100 rounded text-gray-600"><i class="fa fa-chevron-right text-[10px]"></i></button>
+          </div>
+          <div class="relative">
+            <button class="border border-bhBlue text-bhBlue font-semibold px-2.5 py-1 rounded text-xs hover:bg-blue-50 flex items-center space-x-1">
+              <span>ACTIONS</span>
+              <i class="fa fa-caret-down text-[10px]"></i>
+            </button>
+          </div>
+          <div class="flex items-center space-x-2 text-gray-500 pl-2">
+            <i class="fa fa-print cursor-pointer hover:text-gray-800"></i>
+            <i class="fa fa-link cursor-pointer hover:text-gray-800"></i>
+            <i class="fa fa-wrench cursor-pointer hover:text-gray-800"></i>
+            <i class="fa fa-expand cursor-pointer hover:text-gray-800"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sub Ribbon Meta -->
+      <div class="bg-[#fafbfd] border-b border-[#e5e9f0] px-4 py-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] text-gray-600 shrink-0">
+        <div>
+          <span class="text-gray-400 block text-[10px]">Owner</span>
+          <span class="font-medium text-gray-800">Harmeet Singh</span>
+        </div>
+        <div>
+          <span class="text-gray-400 block text-[10px]">Status</span>
+          <div class="flex items-center space-x-1">
+            <span class="font-medium text-gray-800">Submitted</span>
+            <i class="fa fa-circle text-[6px] text-red-500 ml-1"></i>
+            <i class="fa fa-caret-down text-[9px] text-gray-400"></i>
+          </div>
+        </div>
+        <div>
+          <span class="text-gray-400 block text-[10px]">Job #</span>
+          <span class="text-bhBlue font-medium hover:underline cursor-pointer">9 | VettyQA</span>
+        </div>
+        <div>
+          <span class="text-gray-400 block text-[10px]">customText4</span>
+          <span class="text-gray-400 flex items-center space-x-1"><span>Select</span> <i class="fa fa-caret-down text-[9px]"></i></span>
+        </div>
+        <div>
+          <span class="text-gray-400 block text-[10px]">customText10</span>
+          <span class="text-gray-400 flex items-center space-x-1"><span>Select</span> <i class="fa fa-caret-down text-[9px]"></i></span>
+        </div>
+        <div>
+          <span class="text-gray-400 block text-[10px]">Certifications Status</span>
+          <div class="flex items-center space-x-2">
+            <span class="text-gray-600">0%</span>
+            <div class="w-16 h-2 bg-gray-200 rounded overflow-hidden">
+              <div class="bg-bhBlue h-full w-[25%]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="border-b border-[#d8dee4] px-4 flex items-center justify-between text-xs bg-white shrink-0 overflow-x-auto">
+        <div class="flex space-x-6 whitespace-nowrap">
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">OVERVIEW</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">EDIT</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">ACTIVITY</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">NOTES (4)</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">COMMISSIONS</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">FILES (5)</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">CERTIFICATIONS</button>
+          <button class="py-2.5 text-bhBlue font-bold border-b-2 border-bhBlue">VETTY SCREENING (STAGE)</button>
+          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">VETTY SCREENING (UAT)</button>
+        </div>
+        <div class="text-gray-500 hover:text-gray-800 cursor-pointer flex items-center space-x-1 text-xs shrink-0 pl-4">
+          <span class="font-medium text-[11px]">LAYOUT</span>
+          <i class="fa fa-th-large text-bhBlue"></i>
+        </div>
+      </nav>
+
+      <!-- Main Scrollable Body Area -->
+      <div id="screeningCanvas" class="flex-1 overflow-y-auto p-4 md:p-6 bg-[#f4f6fa] relative">
+        
+        <!-- ============================================== -->
+        <!-- VIEW 1: CANDIDATE DETAIL & REVIEW NEEDED VIEW -->
+        <!-- ============================================== -->
+        <div id="candidateDetailView" class="max-w-6xl mx-auto space-y-6">
+          
+          <!-- Exact Candidate Info Card Matching Reference 2 -->
+          <div class="bg-white rounded-lg border border-[#e2e8f0] p-6 shadow-sm relative">
+            
+            <!-- Top Row: Avatar + Name + Review Needed Badge (Left) & Actions + Profile Selector (Right) -->
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-6 border-b border-gray-100">
+              
+              <!-- Left: Avatar, Name, Status Badge -->
+              <div class="flex items-start space-x-4">
+                <div class="w-14 h-14 rounded-full bg-[#e8f1fa] text-[#5497d6] flex items-center justify-center text-3xl shrink-0 mt-0.5">
+                  <i class="fa fa-user"></i>
+                </div>
+                <div class="space-y-1.5">
+                  <h2 id="cardCandidateName" class="text-base font-bold text-gray-900 tracking-tight">Mike William</h2>
+                  <div class="flex items-center">
+                    <span id="cardStatusBadge" class="bg-[#f59e0b] text-white text-xs font-semibold px-3 py-1 rounded shadow-sm inline-block">
+                      Checks complete - Review Needed
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: "Add New Checks", "Documents and Disclosures", and beside it on extreme right: Profile Dropdown + (+) Button -->
+              <div class="flex flex-wrap items-center gap-x-5 gap-y-3 self-start lg:self-center">
+                
+                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                  <button class="flex items-center space-x-1.5 hover:text-bhBlue transition">
+                    <i class="fa-solid fa-folder-plus text-gray-400"></i>
+                    <span>Add New Checks</span>
+                  </button>
+                  <button class="flex items-center space-x-1.5 hover:text-bhBlue transition">
+                    <i class="fa-regular fa-file-lines text-gray-400"></i>
+                    <span>Documents and Disclosures</span>
+                  </button>
+                </div>
+
+                <!-- Profile Selector & Plus Button -->
+                <div class="flex items-center space-x-2 pl-2 border-l border-gray-200">
+                  <span class="text-xs text-gray-500 font-medium">Profile:</span>
+                  <div class="relative">
+                    <select id="profileDropdown" onchange="switchProfile(this.value)" class="text-xs font-semibold bg-white border border-gray-300 text-gray-700 py-1.5 px-3 pr-8 rounded focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue cursor-pointer shadow-xs">
+                      <!-- Dynamic via JS -->
+                    </select>
+                  </div>
+
+                  <!-- Plus button with Tooltip "Create Multiple Profile" -->
+                  <div class="relative inline-block group">
+                    <button id="createProfileBtn" onclick="openCreateProfileForm()" class="bg-bhBlue hover:bg-blue-700 text-white rounded w-7 h-7 flex items-center justify-center shadow-sm transition active:scale-95">
+                      <i class="fa fa-plus text-xs"></i>
+                    </button>
+                    <!-- Tooltip -->
+                    <div class="absolute bottom-full mb-2 right-0 hidden group-hover:flex flex-col items-end z-50 pointer-events-none transition-opacity duration-200">
+                      <div class="bg-gray-800 text-white text-[11px] font-medium py-1 px-2.5 rounded shadow-lg whitespace-nowrap">
+                        Create Multiple Profile
+                      </div>
+                      <div class="w-2 h-2 bg-gray-800 rotate-45 mr-2.5 -mt-1"></div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Two-Column Tabular Details Matching Exact Placement in Screenshot 2 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 pt-5 text-xs">
+              
+              <!-- Column 1 (Left Key-Value pairs) -->
+              <div class="space-y-2.5">
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Added By</span>
+                  <span class="text-gray-900 font-medium flex-1">Harmeet Singh</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Package</span>
+                  <span id="cardPackage" class="text-gray-900 font-medium flex-1">SSN ONLY</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Department</span>
+                  <span id="cardDepartment" class="text-gray-900 font-medium flex-1">Qa Department</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Location</span>
+                  <span id="cardLocation" class="text-gray-900 font-medium flex-1">NewYork</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Order ID</span>
+                  <span id="cardOrderId" class="text-gray-900 font-medium flex-1">VL2W7</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Candidate ID</span>
+                  <span id="candidateIdDisplay" class="text-gray-900 font-mono text-[11px] flex-1">6ab4f0580a2edaf94467fbb9</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal">Placement Id</span>
+                  <span class="text-gray-900 font-medium flex-1">2818</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-44 text-gray-400 font-normal leading-tight">Expected Employment<br>Start Date</span>
+                  <span id="cardStartDate" class="text-gray-900 font-medium flex-1 self-center">11/15/40</span>
+                </div>
+              </div>
+
+              <!-- Column 2 (Right Key-Value pairs) -->
+              <div class="space-y-2.5">
+                <div class="flex items-baseline">
+                  <span class="w-36 text-gray-400 font-normal">Date Of Birth</span>
+                  <span class="text-gray-900 font-medium flex-1">07/10/XXXX</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-36 text-gray-400 font-normal">Address</span>
+                  <span class="text-gray-900 font-medium flex-1 flex items-center space-x-1.5 truncate">
+                    <i class="fa-regular fa-copy text-gray-400 cursor-pointer hover:text-gray-700 text-[11px]" title="Copy Address"></i>
+                    <span id="cardAddress" class="truncate">fdfasd, Montgomery, TX, 77356</span>
+                  </span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-36 text-gray-400 font-normal">Email Address</span>
+                  <span id="cardEmail" class="text-gray-900 font-medium flex-1 truncate">rt.applicant09+mikewilliam@gmail.com</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-36 text-gray-400 font-normal">Phone #</span>
+                  <span class="text-gray-900 font-medium flex-1">(555) 555-5555</span>
+                </div>
+                <div class="flex items-baseline">
+                  <span class="w-36 text-gray-400 font-normal">Social Security #</span>
+                  <span class="text-gray-900 font-medium flex-1">XXX-XX-3333</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom Grid: Activity Feed & Verified Profile -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- Activity Feed Column -->
+            <div class="lg:col-span-6 space-y-3">
+              <h3 class="font-bold text-gray-800 text-sm">Activity Feed</h3>
+
+              <!-- Timeline with authentic layout -->
+              <div class="bg-transparent pl-4 border-l-2 border-gray-300 space-y-7 ml-3 text-xs pt-1">
+                
+                <!-- Item 1 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-[#f59e0b] rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <span class="font-medium text-gray-800">The Screening Is Complete. Review Needed.</span>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-[#f59e0b] rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-gray-800">FDA Debarment Check Complete</div>
+                      <div class="text-[11px] text-[#f59e0b] font-medium">Review Needed</div>
+                    </div>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-[#f59e0b] rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-gray-800">Child Abuse Registry - PA Check Complete</div>
+                      <div class="text-[11px] text-[#f59e0b] font-medium">Review Needed</div>
+                    </div>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-gray-400 rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <span class="text-gray-700">Mike Re-Entered Their SSN Trace Information.</span>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-[#f59e0b] rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-gray-800">GSA/SAM Check Complete</div>
+                      <div class="text-[11px] text-[#f59e0b] font-medium">Review Needed</div>
+                    </div>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-[#f59e0b] rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-gray-800">SSN Trace Check Complete</div>
+                      <div class="text-[11px] text-[#f59e0b] font-medium">Review Needed</div>
+                    </div>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-bhBlue rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium text-gray-800">Background Screening Started</div>
+                      <div class="text-[11px] text-gray-400 font-mono">SSN ONLY</div>
+                    </div>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-gray-400 rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <span class="text-gray-700">Mike Finished The Application</span>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-gray-400 rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <span class="text-gray-700">Mike Started The Application</span>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-pink-500 rounded-full border-2 border-white"></div>
+                  <div>
+                    <div class="flex justify-between items-start">
+                      <span class="font-medium text-gray-800">Harmeet Singh Has Added The Following Check(S) To This Order:</span>
+                      <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                    </div>
+                    <p class="text-[11px] text-gray-500 mt-0.5">Child Abuse Registry - Pennsylvania, FDA Debarment, GSA/SAM...</p>
+                    <a href="#" class="text-bhBlue font-semibold text-[11px] hover:underline">Read More</a>
+                  </div>
+                </div>
+
+                <!-- Item 11 -->
+                <div class="relative">
+                  <div class="absolute -left-[23px] top-1 w-3 h-3 bg-gray-400 rounded-full border-2 border-white"></div>
+                  <div class="flex justify-between items-start">
+                    <span class="text-gray-700">Invitation Sent</span>
+                    <span class="text-gray-400 text-[11px] shrink-0 ml-2">09/24/26</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Verified Profile Column -->
+            <div class="lg:col-span-6 space-y-3">
+              <h3 class="font-bold text-gray-800 text-sm">Verified Profile</h3>
+
+              <div class="bg-white rounded-lg border border-[#e2e8f0] p-5 shadow-sm">
+                
+                <div class="flex items-center space-x-2 text-base font-bold text-gray-800 mb-4 pb-1">
+                  <span>Background Screening</span>
+                  <i class="fa fa-user-shield text-gray-400 text-sm"></i>
+                </div>
+
+                <!-- Section: IDENTITY -->
+                <div class="mb-4">
+                  <div class="text-[10px] font-semibold text-gray-400 tracking-wider uppercase mb-2">IDENTITY</div>
+                  
+                  <div class="bg-white border border-[#e2e8f0] rounded p-3 flex items-center justify-between shadow-2xs">
+                    <div class="flex items-center space-x-2 text-gray-800 font-medium">
+                      <span>Social Security Trace</span>
+                      <i class="fa fa-chevron-down text-gray-400 text-[10px] cursor-pointer"></i>
+                    </div>
+                    <span class="bg-[#2563eb] text-white text-[11px] font-semibold px-3 py-0.5 rounded">
+                      In Progress
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Section: BASIC CRIMINAL -->
+                <div>
+                  <div class="text-[10px] font-semibold text-gray-400 tracking-wider uppercase mb-2">BASIC CRIMINAL</div>
+                  
+                  <div class="space-y-2">
+                    <!-- Child Abuse Registry -->
+                    <div class="bg-white border border-[#e2e8f0] rounded p-3 flex items-center justify-between shadow-2xs">
+                      <div class="flex items-center space-x-2 text-gray-800 font-medium">
+                        <span>Child Abuse Registry - Pennsylvania</span>
+                        <i class="fa fa-chevron-down text-gray-400 text-[10px] cursor-pointer"></i>
+                      </div>
+                      <span class="bg-[#f59e0b] text-white text-[11px] font-semibold px-3 py-0.5 rounded">
+                        Review Needed
+                      </span>
+                    </div>
+
+                    <!-- FDA Debarment -->
+                    <div class="bg-white border border-[#e2e8f0] rounded p-3 flex items-center justify-between shadow-2xs">
+                      <div class="flex items-center space-x-2 text-gray-800 font-medium">
+                        <span>FDA Debarment</span>
+                        <i class="fa fa-chevron-down text-gray-400 text-[10px] cursor-pointer"></i>
+                      </div>
+                      <span class="bg-[#f59e0b] text-white text-[11px] font-semibold px-3 py-0.5 rounded">
+                        Review Needed
+                      </span>
+                    </div>
+
+                    <!-- GSA/SAM -->
+                    <div class="bg-white border border-[#e2e8f0] rounded p-3 flex items-center justify-between shadow-2xs">
+                      <div class="flex items-center space-x-2 text-gray-800 font-medium">
+                        <span>GSA/SAM</span>
+                        <i class="fa fa-chevron-down text-gray-400 text-[10px] cursor-pointer"></i>
+                      </div>
+                      <span class="bg-[#f59e0b] text-white text-[11px] font-semibold px-3 py-0.5 rounded">
+                        Review Needed
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 2: CREATE MULTIPLE PROFILE FORM (Matching First Screenshot) -->
+        <!-- ============================================================== -->
+        <div id="createProfileView" class="hidden max-w-5xl mx-auto space-y-6">
+          
+          <!-- Back button navigation bar -->
+          <div class="flex items-center justify-between bg-white border border-[#dde3eb] p-3 rounded-lg custom-shadow">
+            <button onclick="closeCreateProfileForm()" class="flex items-center space-x-2 text-xs font-semibold text-gray-600 hover:text-bhBlue transition">
+              <i class="fa fa-arrow-left"></i>
+              <span>Back to Current Profile Overview</span>
+            </button>
+            <span class="text-xs bg-blue-100 text-bhBlue font-bold px-2.5 py-1 rounded">
+              Creating Additional Candidate Profile
+            </span>
+          </div>
+
+          <!-- Section 1: Candidate Basic Information -->
+          <div class="bg-white rounded-lg border border-[#dde3eb] p-6 custom-shadow">
+            <h2 class="text-sm font-bold text-gray-800 mb-5 pb-2 border-b border-gray-100">
+              Candidate Basic Information
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+              
+              <!-- First Name -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  First Name<span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="formFirstName" value="Mike" class="w-full bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue">
+              </div>
+
+              <!-- Last Name -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Last Name<span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="formLastName" value="William" class="w-full bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue">
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Email<span class="text-red-500">*</span>
+                </label>
+                <input type="email" id="formEmail" value="rt.applicant09+mikewilliam@gmail.com" class="w-full bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue">
+              </div>
+
+              <!-- Expected Employment Start Date (Prepopulated Future Date) -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Expected Employment Start Date
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i class="fa-regular fa-calendar"></i>
+                  </div>
+                  <input type="text" id="formStartDate" class="w-full bg-[#f8fafc] border border-gray-300 rounded-md pl-9 pr-3 py-2.5 text-xs text-gray-800 font-medium focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue">
+                </div>
+                <p class="text-[10px] text-gray-400 mt-1">Date Entered Will Not Impact Turnaround Time For Screening.</p>
+              </div>
+
+              <!-- Phone Number -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Phone Number
+                </label>
+                <input type="text" id="formPhone" value="(555) 348-9122" class="w-full bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue">
+              </div>
+
+              <!-- Expected Annual Salary -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Expected Annual Salary Of Candidate (USD)
+                </label>
+                <input type="text" id="formSalary" placeholder="Salary" value="95,000" class="w-full bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue">
+              </div>
+
+              <!-- Checkbox: Text message consent -->
+              <div class="md:col-span-1 flex items-start space-x-2.5 pt-1">
+                <input type="checkbox" id="smsConsent" checked class="mt-0.5 rounded border-gray-300 text-bhBlue focus:ring-bhBlue">
+                <label for="smsConsent" class="text-[11px] text-gray-500 leading-snug cursor-pointer">
+                  The candidate has agreed to receive text messages from Vetty in connection with their background and/or occupational health screening. The candidate understands that receiving text messages is optional.
+                </label>
+              </div>
+
+              <!-- Salary Disclaimer Note -->
+              <div class="md:col-span-1">
+                <p class="text-[10px] text-gray-400 leading-snug">
+                  Note: This may impact the reporting associated with background checks that are subject to salary-based reporting restrictions in certain jurisdictions. If this field is left blank, we will adhere to the most restrictive reporting guidelines in accordance with the FCRA and state law(s).
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Section 2: Select A Package -->
+          <div class="bg-white rounded-lg border border-[#dde3eb] p-6 custom-shadow">
+            <h2 class="text-sm font-bold text-gray-800 mb-5 pb-2 border-b border-gray-100">
+              Select A Package
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+              
+              <!-- Department Dropdown -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Department<span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <select id="formDepartment" class="w-full appearance-none bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 pr-8 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue cursor-pointer">
+                    <option value="Product Department">Product Department</option>
+                    <option value="Technical Department" selected>Technical Department</option>
+                    <option value="Sales Department">Sales Department</option>
+                    <option value="Marketing Department">Marketing Department</option>
+                    <option value="Qa Department">Qa Department</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                    <i class="fa fa-chevron-down text-xs"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location Dropdown (Famous US States) -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Location<span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <select id="formLocation" class="w-full appearance-none bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 pr-8 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue cursor-pointer">
+                    <option value="California" selected>California</option>
+                    <option value="New York">New York</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Washington">Washington</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                    <i class="fa fa-chevron-down text-xs"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Package Dropdown -->
+              <div class="md:col-span-2 md:w-1/2">
+                <label class="block text-xs font-semibold text-gray-700 mb-1">
+                  Package<span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                  <select id="formPackage" class="w-full appearance-none bg-[#f8fafc] border border-gray-300 rounded-md p-2.5 pr-8 text-xs text-gray-800 focus:bg-white focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue cursor-pointer">
+                    <option value="SSN ONLY">SSN ONLY</option>
+                    <option value="SSN + County Criminal" selected>SSN + County Criminal</option>
+                    <option value="State Criminal + SSN">State Criminal + SSN</option>
+                    <option value="County Civil + SSN">County Civil + SSN</option>
+                    <option value="MT Package">MT Package</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                    <i class="fa fa-chevron-down text-xs"></i>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Bottom Footer Actions matching Screenshot 1 -->
+          <div class="flex flex-wrap items-center justify-between bg-white border border-[#dde3eb] p-4 rounded-lg custom-shadow gap-4">
+            <button type="button" class="bg-[#0083ca] hover:bg-blue-600 text-white font-medium px-5 py-2 rounded text-xs transition shadow-sm">
+              IntelliOrder
+            </button>
+
+            <div class="text-[11px] text-gray-500 italic flex-1 max-w-lg text-center md:text-left px-2">
+              Note: If you previously selected IntelliOrder and the placement requirements have changed since then, please re-trigger IntelliOrder.
+            </div>
+
+            <!-- Enabled Next Button in Blue -->
+            <button type="button" onclick="submitCreateProfile()" class="bg-[#1e73be] hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded text-xs flex items-center space-x-2 transition shadow">
+              <span>Next</span>
+              <i class="fa fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Notification Toast Notification -->
+        <div id="toastNotification" class="fixed bottom-6 right-16 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-900 text-white px-4 py-2.5 rounded-lg shadow-xl flex items-center space-x-2.5 text-xs">
+          <i class="fa fa-check-circle text-green-400 text-sm"></i>
+          <span id="toastMessage">Profile created successfully!</span>
+        </div>
+
+      </div>
+
+      <!-- Floating Support Widget / Icons at Bottom -->
+      <div class="fixed bottom-3 left-48 z-20 flex items-center space-x-1">
+        <button class="bg-[#10b981] hover:bg-emerald-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow-lg transition">
+          <i class="fa fa-comment-dots text-base"></i>
+        </button>
+        <span class="text-gray-400 text-xs"><i class="fa fa-ellipsis-v"></i><i class="fa fa-ellipsis-v -ml-1"></i></span>
+      </div>
+
+      <div class="fixed bottom-3 right-4 z-20">
+        <button class="bg-white border border-gray-300 hover:bg-gray-100 text-bhBlue w-8 h-8 rounded flex items-center justify-center shadow transition" title="Refresh Screen">
+          <i class="fa fa-arrows-rotate text-xs"></i>
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // In-memory profiles repository for candidate "Mike William"
+    const candidateProfiles = [
+      {
+        id: "profile-1",
+        label: "Profile 1 - SSN ONLY (QA Dept / NY)",
+        firstName: "Mike",
+        lastName: "William",
+        email: "rt.applicant09+mikewilliam@gmail.com",
+        phone: "(555) 555-5555",
+        status: "Checks complete - Review Needed",
+        statusColor: "#f59e0b",
+        department: "Qa Department",
+        location: "NewYork",
+        package: "SSN ONLY",
+        orderId: "VL2W7",
+        candidateId: "6ab4f0580a2edaf94467fbb9",
+        placementId: "2818",
+        startDate: "11/15/40",
+        address: "fdfasd, Montgomery, TX, 77356"
+      }
+    ];
+
+    let currentProfileId = "profile-1";
+
+    // Helper: Compute future date (e.g. 14 days from today)
+    function calculateFutureEmploymentDate() {
+      const today = new Date();
+      const future = new Date(today);
+      future.setDate(today.getDate() + 14);
+      
+      const mm = String(future.getMonth() + 1).padStart(2, '0');
+      const dd = String(future.getDate()).padStart(2, '0');
+      const yyyy = future.getFullYear();
+      return `${mm}/${dd}/${yyyy}`;
+    }
+
+    // Populate the dropdown selector
+    function renderProfileDropdown() {
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.innerHTML = '';
+      
+      candidateProfiles.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p.id;
+        option.textContent = p.label;
+        if (p.id === currentProfileId) {
+          option.selected = true;
+        }
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Update the UI view with selected profile details
+    function updateProfileView(profile) {
+      document.getElementById('topRecordHeaderName').textContent = `${profile.firstName} ${profile.lastName} - VettyQA`;
+      document.getElementById('cardCandidateName').textContent = `${profile.firstName} ${profile.lastName}`;
+      document.getElementById('cardStatusBadge').textContent = profile.status;
+      document.getElementById('cardDepartment').textContent = profile.department;
+      document.getElementById('cardLocation').textContent = profile.location;
+      document.getElementById('cardPackage').textContent = profile.package;
+      document.getElementById('cardEmail').textContent = profile.email;
+      document.getElementById('cardStartDate').textContent = profile.startDate;
+      document.getElementById('cardOrderId').textContent = profile.orderId;
+      document.getElementById('candidateIdDisplay').textContent = profile.candidateId;
+      document.getElementById('cardAddress').textContent = profile.address;
+    }
+
+    // Switch profile handler
+    function switchProfile(profileId) {
+      currentProfileId = profileId;
+      const found = candidateProfiles.find(p => p.id === profileId);
+      if (found) {
+        updateProfileView(found);
+        showToast(`Switched to ${found.label}`);
+      }
+    }
+
+    // Open Create Multiple Profile Form (Screenshot 1 view)
+    function openCreateProfileForm() {
+      document.getElementById('candidateDetailView').classList.add('hidden');
+      document.getElementById('createProfileView').classList.remove('hidden');
+
+      // Pre-fill form fields with Mike William details and future date
+      document.getElementById('formFirstName').value = "Mike";
+      document.getElementById('formLastName').value = "William";
+      
+      // Auto increment email tag for variety
+      const count = candidateProfiles.length + 1;
+      document.getElementById('formEmail').value = `rt.applicant09+mikewilliam_v${count}@gmail.com`;
+      
+      // Always pre-populate expected employment start date with future date
+      document.getElementById('formStartDate').value = calculateFutureEmploymentDate();
+      
+      // Default department, location, package
+      document.getElementById('formDepartment').value = "Technical Department";
+      document.getElementById('formLocation').value = "California";
+      document.getElementById('formPackage').value = "SSN + County Criminal";
+
+      // Scroll to top
+      document.getElementById('screeningCanvas').scrollTop = 0;
+    }
+
+    // Close Create Multiple Profile Form
+    function closeCreateProfileForm() {
+      document.getElementById('createProfileView').classList.add('hidden');
+      document.getElementById('candidateDetailView').classList.remove('hidden');
+    }
+
+    // Submit handler for creating another profile
+    function submitCreateProfile() {
+      const fName = document.getElementById('formFirstName').value.trim() || "Mike";
+      const lName = document.getElementById('formLastName').value.trim() || "William";
+      const email = document.getElementById('formEmail').value.trim();
+      const phone = document.getElementById('formPhone').value.trim();
+      const startDate = document.getElementById('formStartDate').value.trim();
+      const department = document.getElementById('formDepartment').value;
+      const location = document.getElementById('formLocation').value;
+      const pkg = document.getElementById('formPackage').value;
+
+      const newId = `profile-${candidateProfiles.length + 1}`;
+      const newProfileNumber = candidateProfiles.length + 1;
+
+      const randomOrderId = 'VL' + Math.floor(100 + Math.random() * 900) + 'X';
+      const randomHex = Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
+
+      const newProfile = {
+        id: newId,
+        label: `Profile ${newProfileNumber} - ${pkg} (${department.split(' ')[0]} / ${location})`,
+        firstName: fName,
+        lastName: lName,
+        email: email,
+        phone: phone || "(555) 555-5555",
+        status: "Checks In Progress",
+        statusColor: "#2563eb",
+        department: department,
+        location: location,
+        package: pkg,
+        orderId: randomOrderId,
+        candidateId: randomHex,
+        placementId: "2818",
+        startDate: startDate,
+        address: "fdfasd, Montgomery, TX, 77356"
+      };
+
+      // Add to repository
+      candidateProfiles.push(newProfile);
+      currentProfileId = newId;
+
+      // Refresh dropdown
+      renderProfileDropdown();
+      updateProfileView(newProfile);
+
+      // Return to detail view
+      closeCreateProfileForm();
+      showToast(`New profile for ${fName} ${lName} created successfully!`);
+    }
+
+    // Toast notification helper
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    // Initialization on window load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderProfileDropdown();
+      updateProfileView(candidateProfiles[0]);
+    });
+  </script>
+</body>
+</html>
