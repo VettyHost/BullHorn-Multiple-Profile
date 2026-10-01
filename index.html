@@ -187,16 +187,16 @@
 
       <!-- Navigation Tabs -->
       <nav class="border-b border-[#d8dee4] px-4 flex items-center justify-between text-xs bg-white shrink-0 overflow-x-auto">
-        <div class="flex space-x-6 whitespace-nowrap">
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">OVERVIEW</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">EDIT</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">ACTIVITY</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">NOTES (4)</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">COMMISSIONS</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">FILES (5)</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">CERTIFICATIONS</button>
-          <button class="py-2.5 text-bhBlue font-bold border-b-2 border-bhBlue">VETTY SCREENING (STAGE)</button>
-          <button class="py-2.5 text-gray-500 hover:text-gray-800 font-medium">VETTY SCREENING (UAT)</button>
+        <div class="flex space-x-5 whitespace-nowrap">
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">OVERVIEW</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">EDIT</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">ACTIVITY</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">NOTES (4)</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">COMMISSIONS</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">FILES (5)</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">CERTIFICATIONS</button>
+          <button class="py-1.5 text-bhBlue font-bold border-b-2 border-bhBlue text-[11px]">VETTY SCREENING (STAGE)</button>
+          <button class="py-1.5 text-gray-500 hover:text-gray-800 text-[11px] font-medium">VETTY SCREENING (UAT)</button>
         </div>
         <div class="text-gray-500 hover:text-gray-800 cursor-pointer flex items-center space-x-1 text-xs shrink-0 pl-4">
           <span class="font-medium text-[11px]">LAYOUT</span>
@@ -213,9 +213,35 @@
         <div id="candidateDetailView" class="max-w-6xl mx-auto space-y-6">
           
           <!-- Exact Candidate Info Card Matching Reference 2 -->
-          <div class="bg-white rounded-lg border border-[#e2e8f0] p-6 shadow-sm relative">
+          <div class="bg-white rounded-lg border border-[#e2e8f0] p-6 shadow-xs relative">
             
-            <!-- Top Row: Avatar + Name + Review Needed Badge (Left) & Actions + Profile Selector (Right) -->
+            <!-- Top Extreme Right Profile Selector Row (above Document and Disclosure, in empty top corner) -->
+            <div class="flex justify-end items-center mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs text-gray-500 font-medium">Profile:</span>
+                <div class="relative">
+                  <select id="profileDropdown" onchange="switchProfile(this.value)" class="text-xs font-semibold bg-white border border-gray-300 text-gray-700 py-1 px-2.5 pr-7 rounded focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue cursor-pointer shadow-xs">
+                    <!-- Dynamic via JS -->
+                  </select>
+                </div>
+
+                <!-- Plus button with Tooltip "Create Multiple Profile" -->
+                <div class="relative inline-block group">
+                  <button id="createProfileBtn" onclick="openCreateProfileForm()" class="bg-bhBlue hover:bg-blue-700 text-white rounded w-6 h-6 flex items-center justify-center shadow-xs transition active:scale-95">
+                    <i class="fa fa-plus text-[11px]"></i>
+                  </button>
+                  <!-- Tooltip -->
+                  <div class="absolute bottom-full mb-2 right-0 hidden group-hover:flex flex-col items-end z-50 pointer-events-none transition-opacity duration-200">
+                    <div class="bg-gray-800 text-white text-[11px] font-medium py-1 px-2.5 rounded shadow-lg whitespace-nowrap">
+                      Create Multiple Profile
+                    </div>
+                    <div class="w-2 h-2 bg-gray-800 rotate-45 mr-2 -mt-1"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Row: Avatar + Name + Review Needed Badge (Left) & Actions (Right) -->
             <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-6 border-b border-gray-100">
               
               <!-- Left: Avatar, Name, Status Badge -->
@@ -233,46 +259,18 @@
                 </div>
               </div>
 
-              <!-- Right: "Add New Checks", "Documents and Disclosures", and beside it on extreme right: Profile Dropdown + (+) Button -->
-              <div class="flex flex-wrap items-center gap-x-5 gap-y-3 self-start lg:self-center">
-                
-                <div class="flex items-center space-x-4 text-xs text-gray-600">
-                  <button class="flex items-center space-x-1.5 hover:text-bhBlue transition">
-                    <i class="fa-solid fa-folder-plus text-gray-400"></i>
-                    <span>Add New Checks</span>
-                  </button>
-                  <button class="flex items-center space-x-1.5 hover:text-bhBlue transition">
-                    <i class="fa-regular fa-file-lines text-gray-400"></i>
-                    <span>Documents and Disclosures</span>
-                  </button>
-                </div>
-
-                <!-- Profile Selector & Plus Button -->
-                <div class="flex items-center space-x-2 pl-2 border-l border-gray-200">
-                  <span class="text-xs text-gray-500 font-medium">Profile:</span>
-                  <div class="relative">
-                    <select id="profileDropdown" onchange="switchProfile(this.value)" class="text-xs font-semibold bg-white border border-gray-300 text-gray-700 py-1.5 px-3 pr-8 rounded focus:outline-none focus:border-bhBlue focus:ring-1 focus:ring-bhBlue cursor-pointer shadow-xs">
-                      <!-- Dynamic via JS -->
-                    </select>
-                  </div>
-
-                  <!-- Plus button with Tooltip "Create Multiple Profile" -->
-                  <div class="relative inline-block group">
-                    <button id="createProfileBtn" onclick="openCreateProfileForm()" class="bg-bhBlue hover:bg-blue-700 text-white rounded w-7 h-7 flex items-center justify-center shadow-sm transition active:scale-95">
-                      <i class="fa fa-plus text-xs"></i>
-                    </button>
-                    <!-- Tooltip -->
-                    <div class="absolute bottom-full mb-2 right-0 hidden group-hover:flex flex-col items-end z-50 pointer-events-none transition-opacity duration-200">
-                      <div class="bg-gray-800 text-white text-[11px] font-medium py-1 px-2.5 rounded shadow-lg whitespace-nowrap">
-                        Create Multiple Profile
-                      </div>
-                      <div class="w-2 h-2 bg-gray-800 rotate-45 mr-2.5 -mt-1"></div>
-                    </div>
-                  </div>
-
-                </div>
-
+              <!-- Right: "Add New Checks" and "Documents and Disclosures" below the top right profile dropdown -->
+              <div class="flex items-center space-x-5 text-xs text-gray-600 self-start lg:self-center mt-2 lg:mt-0">
+                <button class="flex items-center space-x-1.5 hover:text-bhBlue transition">
+                  <i class="fa-solid fa-folder-plus text-gray-400"></i>
+                  <span>Add New Checks</span>
+                </button>
+                <button class="flex items-center space-x-1.5 hover:text-bhBlue transition">
+                  <i class="fa-regular fa-file-lines text-gray-400"></i>
+                  <span>Documents and Disclosures</span>
+                </button>
               </div>
+
             </div>
 
             <!-- Two-Column Tabular Details Matching Exact Placement in Screenshot 2 -->
@@ -766,7 +764,7 @@
     const candidateProfiles = [
       {
         id: "profile-1",
-        label: "Profile 1 - SSN ONLY (QA Dept / NY)",
+        label: "Mike William (SSN ONLY)",
         firstName: "Mike",
         lastName: "William",
         email: "rt.applicant09+mikewilliam@gmail.com",
@@ -889,7 +887,7 @@
 
       const newProfile = {
         id: newId,
-        label: `Profile ${newProfileNumber} - ${pkg} (${department.split(' ')[0]} / ${location})`,
+        label: `${fName} ${lName} (${pkg})`,
         firstName: fName,
         lastName: lName,
         email: email,
